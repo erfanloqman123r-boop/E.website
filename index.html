@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>E.website</title>
 
 <style>
@@ -19,73 +20,108 @@ body {
 }
 
 header {
-    height: 65px;
-    background: #151515;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    gap: 25px;
     position: sticky;
     top: 0;
     z-index: 10;
+    height: 70px;
+    background: #151515;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 25px;
+    border-bottom: 1px solid #292929;
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 25px;
     font-weight: bold;
-    color: #20d66b;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #ff1744;
 }
 
 .search {
-    flex: 1;
-    max-width: 500px;
-    background: #252525;
+    width: 100%;
+    max-width: 450px;
+    background: #242424;
+    color: white;
     border: none;
     outline: none;
-    padding: 12px 18px;
     border-radius: 25px;
-    color: white;
+    padding: 13px 18px;
     font-size: 15px;
 }
 
+.search::placeholder {
+    color: #999;
+}
+
+.hero {
+    padding: 45px 25px;
+    background: linear-gradient(135deg, #181818, #090909);
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #aaa;
+    font-size: 17px;
+    margin-bottom: 22px;
+}
+
+.hero button {
+    background: #ff1744;
+    color: white;
+    border: none;
+    padding: 13px 24px;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
+    padding: 25px;
+}
+
+.section-title {
+    font-size: 25px;
+    margin: 30px 0 18px;
 }
 
 .player {
+    background: black;
     width: 100%;
-    background: #000;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
+    max-width: 1000px;
+    margin: auto;
+    border-radius: 10px;
     overflow: hidden;
 }
 
 video {
     width: 100%;
-    height: 100%;
-    background: black;
+    display: block;
+    max-height: 550px;
 }
 
-.title {
-    margin: 20px 0;
-    font-size: 25px;
-}
-
-.section-title {
-    margin: 30px 0 15px;
-    font-size: 21px;
+.current-title {
+    max-width: 1000px;
+    margin: 15px auto;
+    font-size: 22px;
 }
 
 .movies {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
 }
 
 .movie {
-    background: #181818;
+    background: #171717;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
@@ -93,39 +129,82 @@ video {
 }
 
 .movie:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
+    background: #222;
 }
 
 .poster {
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    background: linear-gradient(135deg,#222,#444);
+    height: 230px;
+    background: linear-gradient(135deg, #292929, #111);
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 40px;
+    align-items: center;
+    font-size: 50px;
+    color: #ff1744;
 }
 
 .movie-name {
-    padding: 12px;
+    padding: 14px;
     font-weight: bold;
 }
 
-@media(max-width:600px) {
+.category {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.category button {
+    background: #202020;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 9px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.category button:hover {
+    background: #ff1744;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 25px;
+    text-align: center;
+    color: #777;
+    background: #111;
+}
+
+@media (max-width: 600px) {
+
     header {
-        padding: 0 12px;
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .logo {
-        font-size: 19px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 30px;
     }
 
     .container {
-        padding: 12px;
+        padding: 15px;
     }
 
     .movies {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .poster {
+        height: 170px;
     }
 }
 </style>
@@ -134,85 +213,46 @@ video {
 <body>
 
 <header>
-    <div class="logo">E.website</div>
-    <input class="search" id="search" placeholder="Search movies...">
+    <div class="logo">E<span>.website</span></div>
+
+    <input
+        class="search"
+        id="search"
+        type="text"
+        placeholder="Search videos..."
+        onkeyup="searchMovies()"
+    >
 </header>
+
+<section class="hero">
+    <h1>Welcome to E.website</h1>
+    <p>Watch videos in a simple, modern streaming interface.</p>
+
+    <button onclick="scrollToMovies()">Browse Videos</button>
+</section>
 
 <div class="container">
 
+    <h2 class="section-title">Categories</h2>
+
+    <div class="category">
+        <button onclick="filterMovies('all')">All</button>
+        <button onclick="filterMovies('animation')">Animation</button>
+        <button onclick="filterMovies('demo')">Demo</button>
+    </div>
+
+    <h2 class="section-title">Video Player</h2>
+
     <div class="player">
         <video id="videoPlayer" controls>
-            <source src="" type="video/mp4">
+            <source id="videoSource" src="" type="video/mp4">
             Your browser does not support video.
         </video>
     </div>
 
-    <h1 class="title" id="currentTitle">
-        Select a movie
-    </h1>
+    <h2 class="current-title" id="currentTitle">
+        Select a video
+    </h2>
 
-    <h2 class="section-title">Movies</h2>
+    <h2 class="section-title" id="
 
-    <div class="movies" id="movies">
-
-        <div class="movie" data-name="Big Buck Bunny"
-             onclick="playMovie('Big Buck Bunny','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">
-            <div class="poster">▶</div>
-            <div class="movie-name">Big Buck Bunny</div>
-        </div>
-
-        <div class="movie" data-name="Elephants Dream"
-             onclick="playMovie('Elephants Dream','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')">
-            <div class="poster">▶</div>
-            <div class="movie-name">Elephants Dream</div>
-        </div>
-
-        <div class="movie" data-name="For Bigger Blazes"
-             onclick="playMovie('For Bigger Blazes','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4')">
-            <div class="poster">▶</div>
-            <div class="movie-name">For Bigger Blazes</div>
-        </div>
-
-        <div class="movie" data-name="For Bigger Escape"
-             onclick="playMovie('For Bigger Escape','https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4')">
-            <div class="poster">▶</div>
-            <div class="movie-name">For Bigger Escape</div>
-        </div>
-
-    </div>
-</div>
-
-<script>
-
-function playMovie(title, url) {
-    const video = document.getElementById("videoPlayer");
-
-    video.src = url;
-    document.getElementById("currentTitle").textContent = title;
-
-    video.play();
-}
-
-document.getElementById("search").addEventListener("input", function() {
-
-    const search = this.value.toLowerCase();
-    const movies = document.querySelectorAll(".movie");
-
-    movies.forEach(movie => {
-
-        const name = movie.dataset.name.toLowerCase();
-
-        if (name.includes(search)) {
-            movie.style.display = "";
-        } else {
-            movie.style.display = "none";
-        }
-
-    });
-
-});
-
-</script>
-
-</body>
-</html>
