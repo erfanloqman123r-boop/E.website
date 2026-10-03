@@ -1,520 +1,465 @@
-<!DOCTYPE html>
+k<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>E.website</title>
+<title>E.website — Watch Now</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-    background: #080808;
-    color: white;
-    font-family: Arial, sans-serif;
+html{
+  scroll-behavior:smooth;
 }
 
-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 70px;
-    background: rgba(15,15,15,.97);
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    padding: 0 30px;
-    border-bottom: 1px solid #292929;
+body{
+  background:#070707;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
-.logo {
-    font-size: 27px;
-    font-weight: bold;
+button,
+input{
+  font:inherit;
 }
 
-.logo span {
-    color: #e50914;
+/* NAVBAR */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:999;
+  height:68px;
+  padding:0 5%;
+  display:flex;
+  align-items:center;
+  gap:35px;
+  background:rgba(5,5,5,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid #202020;
 }
 
-nav {
-    display: flex;
-    gap: 22px;
+.logo{
+  font-size:25px;
+  font-weight:800;
+  color:#e50914;
+  white-space:nowrap;
 }
 
-nav a {
-    color: #aaa;
-    text-decoration: none;
+.logo span{
+  color:white;
 }
 
-nav a:hover {
-    color: white;
+nav{
+  display:flex;
+  gap:25px;
 }
 
-.search {
-    margin-left: auto;
-    width: 240px;
-    padding: 11px 16px;
-    border: 1px solid #333;
-    border-radius: 25px;
-    background: #222;
-    color: white;
-    outline: none;
+nav a{
+  color:#aaa;
+  text-decoration:none;
+  font-size:14px;
 }
 
-.hero {
-    min-height: 450px;
-    padding: 90px 7%;
-    display: flex;
-    align-items: center;
-
-    background:
-        linear-gradient(90deg, #050505 0%, #080808d9 40%, #08080844 100%),
-        radial-gradient(circle at 75% 40%, #46131d, #111 50%, #050505);
+nav a:hover{
+  color:white;
 }
 
-.hero-content {
-    max-width: 650px;
+.search{
+  margin-left:auto;
+  width:230px;
+  padding:10px 16px;
+  border:1px solid #333;
+  border-radius:25px;
+  background:#151515;
+  color:white;
+  outline:none;
 }
 
-.badge {
-    display: inline-block;
-    background: #e50914;
-    padding: 7px 12px;
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 18px;
+.search:focus{
+  border-color:#e50914;
 }
 
-.hero h1 {
-    font-size: 65px;
-    margin-bottom: 15px;
-}
+/* HERO */
 
-.hero p {
-    color: #aaa;
-    font-size: 17px;
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
-
-.watch {
-    background: #e50914;
-    border: none;
-    color: white;
-    padding: 14px 25px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.container {
-    width: 92%;
-    max-width: 1500px;
-    margin: auto;
-    padding: 30px 0 70px;
-}
-
-.title {
-    margin: 30px 0 18px;
-    font-size: 24px;
-}
-
-.categories {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
-
-.categories button {
-    flex-shrink: 0;
-    background: #1b1b1b;
-    color: white;
-    border: 1px solid #333;
-    border-radius: 20px;
-    padding: 9px 18px;
-    cursor: pointer;
-}
-
-.categories button:hover {
-    background: #e50914;
-}
-
-.player {
-    width: 100%;
-    background: black;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.player iframe {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border: 0;
-    display: block;
-}
-
-.now-playing {
-    margin-top: 13px;
-    color: #ddd;
-    font-size: 20px;
-}
-
-.movie-row {
-    display: flex;
-    gap: 17px;
-    overflow-x: auto;
-    padding: 5px 2px 20px;
-}
-
-.movie {
-    flex: 0 0 210px;
-    background: #151515;
-    border-radius: 9px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid #252525;
-    transition: .2s;
-}
-
-.movie:hover {
-    transform: scale(1.04);
-}
-
-.poster {
-    height: 290px;
-    background: linear-gradient(145deg, #32151b, #101010);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 55px;
-    color: #e50914;
-}
-
-.info {
-    padding: 13px;
-}
-
-.name {
-    font-weight: bold;
-    margin-bottom: 7px;
-}
-
-.meta {
-    color: #777;
-    font-size: 12px;
-}
-
-footer {
-    text-align: center;
-    color: #666;
-    padding: 35px;
-    border-top: 1px solid #222;
-}
-
-@media (max-width: 700px) {
-
-    header {
-        height: auto;
-        padding: 15px;
-        flex-wrap: wrap;
-    }
-
-    nav {
-        order: 3;
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    .search {
-        width: 150px;
-    }
-
-    .hero {
-        min-height: 380px;
-        padding: 70px 6%;
-    }
-
-    .hero h1 {
-        font-size: 42px;
-    }
-
-    .movie {
-        flex-basis: 160px;
-    }
-
-    .poster {
-        height: 225px;
-    }
-}
-
-
-
-
-
-</script>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>E.website</title>
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 65px;
-  background: rgba(10,10,10,.95);
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  padding: 0 5%;
-  border-bottom: 1px solid #222;
-}
-
-.logo {
-  font-size: 25px;
-  font-weight: bold;
-  color: #e50914;
-}
-
-.logo span {
-  color: white;
-}
-
-nav {
-  display: flex;
-  gap: 22px;
-}
-
-nav a {
-  color: #ccc;
-  text-decoration: none;
-}
-
-nav a:hover {
-  color: white;
-}
-
-.search {
-  margin-left: auto;
-  width: 220px;
-  padding: 10px 14px;
-  border: 1px solid #333;
-  border-radius: 20px;
-  background: #151515;
-  color: white;
-  outline: none;
-}
-
-.hero {
-  min-height: 430px;
-  display: flex;
-  align-items: center;
-  padding: 60px 7%;
+.hero{
+  min-height:500px;
+  display:flex;
+  align-items:center;
+  padding:70px 7%;
   background:
-    linear-gradient(90deg, #080808 10%, rgba(8,8,8,.75), rgba(8,8,8,.15)),
-    linear-gradient(180deg, #35151a, #080808);
+    radial-gradient(circle at 75% 35%,rgba(229,9,20,.22),transparent 30%),
+    linear-gradient(90deg,#070707 10%,rgba(7,7,7,.75),rgba(7,7,7,.15)),
+    linear-gradient(135deg,#301116,#090909);
 }
 
-.hero-content {
-  max-width: 600px;
+.hero-content{
+  max-width:650px;
 }
 
-.badge {
-  color: #e50914;
-  font-weight: bold;
-  letter-spacing: 3px;
-  margin-bottom: 15px;
+.badge{
+  display:inline-block;
+  color:#e50914;
+  font-weight:bold;
+  letter-spacing:4px;
+  font-size:13px;
+  margin-bottom:15px;
 }
 
-.hero h1 {
-  font-size: 60px;
-  margin-bottom: 15px;
+.hero h1{
+  font-size:clamp(45px,7vw,80px);
+  line-height:.95;
+  margin-bottom:20px;
 }
 
-.hero p {
-  color: #bbb;
-  font-size: 18px;
-  margin-bottom: 25px;
+.hero p{
+  color:#aaa;
+  max-width:550px;
+  line-height:1.6;
+  font-size:17px;
+  margin-bottom:28px;
 }
 
-.watch {
-  background: #e50914;
-  color: white;
-  border: none;
-  padding: 13px 25px;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
+.watch{
+  border:0;
+  background:#e50914;
+  color:white;
+  padding:14px 25px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:.25s;
 }
 
-.watch:hover {
-  background: #b80710;
+.watch:hover{
+  background:#b80710;
+  transform:translateY(-2px);
 }
 
-.title {
-  font-size: 25px;
-  margin: 35px 5% 18px;
+/* SECTION */
+
+.section{
+  padding:35px 5% 5px;
 }
 
-.categories {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 0 5%;
+.title{
+  font-size:25px;
+  margin-bottom:18px;
 }
 
-.categories button {
-  background: #181818;
-  color: white;
-  border: 1px solid #333;
-  padding: 9px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  white-space: nowrap;
+.subtitle{
+  color:#777;
+  margin-top:-10px;
+  margin-bottom:20px;
 }
 
-.categories button:hover {
-  background: #e50914;
+/* CATEGORIES */
+
+.categories{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:10px;
 }
 
-.player {
-  width: 90%;
-  max-width: 1100px;
-  aspect-ratio: 16 / 9;
-  margin: 20px auto 10px;
-  background: black;
-  border-radius: 10px;
-  overflow: hidden;
+.categories::-webkit-scrollbar,
+.movie-row::-webkit-scrollbar{
+  height:5px;
 }
 
-.player iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+.categories::-webkit-scrollbar-thumb,
+.movie-row::-webkit-scrollbar-thumb{
+  background:#333;
+  border-radius:10px;
 }
 
-.now-playing {
-  width: 90%;
-  max-width: 1100px;
-  margin: auto;
-  color: #aaa;
-  font-size: 15px;
+.categories button{
+  flex:0 0 auto;
+  border:1px solid #333;
+  background:#161616;
+  color:#ddd;
+  padding:9px 18px;
+  border-radius:25px;
+  cursor:pointer;
 }
 
-.movie-row {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding: 5px 5% 25px;
-  scroll-behavior: smooth;
+.categories button:hover,
+.categories button.active{
+  background:#e50914;
+  border-color:#e50914;
+  color:white;
 }
 
-.movie {
-  min-width: 220px;
-  max-width: 220px;
-  background: #121212;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: .25s;
+/* PLAYER */
+
+.player-box{
+  width:90%;
+  max-width:1150px;
+  margin:20px auto;
 }
 
-.movie:hover {
-  transform: scale(1.04);
+.player{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
 }
 
-.poster {
-  height: 290px;
-  background: #151515;
-  overflow: hidden;
-  position: relative;
+.player iframe{
+  width:100%;
+  height:100%;
+  border:0;
 }
 
-.poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.now-playing{
+  padding:14px 2px;
+  font-size:18px;
+  font-weight:bold;
 }
 
-.info {
-  padding: 12px;
+.now-playing span{
+  color:#777;
+  font-size:13px;
+  font-weight:normal;
 }
 
-.name {
-  font-weight: bold;
-  margin-bottom: 6px;
+/* VIDEO ROW */
+
+.movie-row{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding:5px 0 25px;
 }
 
-.meta {
-  color: #888;
-  font-size: 13px;
+.movie{
+  position:relative;
+  flex:0 0 220px;
+  background:#111;
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.3s;
 }
 
-footer {
-  text-align: center;
-  color: #666;
-  padding: 40px 20px;
-  border-top: 1px solid #222;
-  margin-top: 30px;
+.movie:hover{
+  transform:translateY(-7px) scale(1.02);
+  box-shadow:0 15px 35px rgba(0,0,0,.6);
 }
 
-@media (max-width: 700px) {
-  header {
-    gap: 12px;
-    padding: 0 4%;
+.poster{
+  height:300px;
+  position:relative;
+  overflow:hidden;
+  background:#151515;
+}
+
+.poster img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:.4s;
+}
+
+.movie:hover .poster img{
+  transform:scale(1.06);
+}
+
+.poster::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.7),
+    transparent 55%
+  );
+}
+
+.play{
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e50914;
+  color:white;
+  font-size:21px;
+  opacity:0;
+  transition:.25s;
+}
+
+.movie:hover .play{
+  opacity:1;
+}
+
+.duration{
+  position:absolute;
+  z-index:4;
+  right:8px;
+  bottom:8px;
+  padding:4px 7px;
+  border-radius:4px;
+  background:rgba(0,0,0,.8);
+  font-size:11px;
+}
+
+.info{
+  padding:13px;
+}
+
+.name{
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.meta{
+  color:#777;
+  font-size:12px;
+  margin-top:6px;
+}
+
+/* FEATURED */
+
+.featured{
+  border:1px solid #222;
+  background:linear-gradient(135deg,#171717,#0d0d0d);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:30px;
+}
+
+.featured-content{
+  padding:25px;
+}
+
+.featured h2{
+  margin-bottom:8px;
+}
+
+.featured p{
+  color:#888;
+  line-height:1.6;
+}
+
+/* DETAILS */
+
+.details{
+  display:none;
+  width:90%;
+  max-width:1100px;
+  margin:25px auto;
+  padding:22px;
+  background:#111;
+  border:1px solid #222;
+  border-radius:12px;
+}
+
+.details.show{
+  display:block;
+}
+
+.details h2{
+  margin-bottom:10px;
+}
+
+.details p{
+  color:#888;
+  line-height:1.6;
+}
+
+.close{
+  float:right;
+  border:0;
+  background:#222;
+  color:white;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+/* EMPTY */
+
+.empty{
+  display:none;
+  color:#777;
+  padding:30px 0;
+}
+
+/* FOOTER */
+
+footer{
+  margin-top:40px;
+  padding:35px 20px;
+  text-align:center;
+  border-top:1px solid #202020;
+  color:#555;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  header{
+    height:60px;
+    gap:12px;
+    padding:0 4%;
   }
 
-  nav {
-    display: none;
+  nav{
+    display:none;
   }
 
-  .search {
-    width: 150px;
+  .search{
+    width:145px;
   }
 
-  .hero {
-    min-height: 350px;
+  .hero{
+    min-height:410px;
+    padding:50px 6%;
   }
 
-  .hero h1 {
-    font-size: 42px;
+  .hero h1{
+    font-size:48px;
   }
 
-  .movie {
-    min-width: 170px;
-    max-width: 170px;
+  .hero p{
+    font-size:15px;
   }
 
-  .poster {
-    height: 240px;
+  .section{
+    padding-left:4%;
+    padding-right:4%;
+  }
+
+  .player-box,
+  .details{
+    width:92%;
+  }
+
+  .movie{
+    flex-basis:170px;
+  }
+
+  .poster{
+    height:245px;
   }
 }
 </style>
@@ -523,7 +468,10 @@ footer {
 <body>
 
 <header>
-  <div class="logo">E<span>.website</span></div>
+
+  <div class="logo">
+    E<span>.website</span>
+  </div>
 
   <nav>
     <a href="#home">Home</a>
@@ -534,210 +482,435 @@ footer {
   <input
     class="search"
     id="search"
-    placeholder="Search..."
-    onkeyup="searchVideos()"
+    type="search"
+    placeholder="Search videos..."
+    oninput="searchVideos()"
   >
+
 </header>
 
-<section class="hero" id="home">
-  <div class="hero-content">
-    <div class="badge">E.WEBSITE</div>
 
-    <h1>Watch Now</h1>
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+  <div class="hero-content">
+
+    <div class="badge">
+      E.WEBSITE PRO
+    </div>
+
+    <h1>
+      Watch<br>Something Great.
+    </h1>
 
     <p>
-      Discover videos in a modern cinematic streaming experience.
+      Discover videos in a modern cinematic streaming experience
+      built for mobile and desktop.
     </p>
 
     <button class="watch" onclick="goPlayer()">
       ▶ Watch Now
     </button>
+
   </div>
+
 </section>
 
-<h2 class="title" id="categories">Categories</h2>
 
-<div class="categories">
-  <button onclick="filterVideos('all')">All</button>
-  <button onclick="filterVideos('featured')">Featured</button>
-  <button onclick="filterVideos('animation')">Animation</button>
-  <button onclick="filterVideos('music')">Music</button>
-  <button onclick="filterVideos('demo')">Demo</button>
-</div>
+<!-- CATEGORIES -->
 
-<h2 class="title">Now Playing</h2>
+<section class="section" id="categories">
 
-<div class="player" id="player">
-  <iframe
-    id="youtubePlayer"
-    src="https://www.youtube.com/embed/ACDKvjQKbW4"
-    title="E.website Video Player"
-    allow="autoplay; encrypted-media; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-</div>
+  <h2 class="title">
+    Categories
+  </h2>
 
-<div class="now-playing" id="nowPlaying">
-  Featured Video
-</div>
+  <div class="categories">
 
-<h2 class="title" id="videos">Videos</h2>
+    <button class="active" onclick="filterVideos('all',this)">
+      All
+    </button>
 
-<div class="movie-row" id="movieRow">
+    <button onclick="filterVideos('featured',this)">
+      Featured
+    </button>
 
-  <!-- VIDEO 1 -->
-  <div
-    class="movie"
-    data-name="Featured Video"
-    data-category="featured"
-    onclick="playVideo('Featured Video','ACDKvjQKbW4')"
-  >
-    <div class="poster">
-      <img
-        src="https://img.youtube.com/vi/ACDKvjQKbW4/maxresdefault.jpg"
-        alt="Featured Video"
-      >
-    </div>
+    <button onclick="filterVideos('animation',this)">
+      Animation
+    </button>
 
-    <div class="info">
-      <div class="name">Featured Video</div>
-      <div class="meta">YouTube • Featured</div>
-    </div>
+    <button onclick="filterVideos('music',this)">
+      Music
+    </button>
+
+    <button onclick="filterVideos('sports',this)">
+      Sports
+    </button>
+
+    <button onclick="filterVideos('demo',this)">
+      Demo
+    </button>
+
   </div>
 
+</section>
 
-  <!-- VIDEO 2 -->
-  <div
-    class="movie"
-    data-name="Big Buck Bunny"
-    data-category="animation"
-    onclick="playVideo('Big Buck Bunny','aqz-KE-bpKQ')"
-  >
-    <div class="poster">
-      <img
-        src="https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
-        alt="Big Buck Bunny"
-      >
+
+<!-- FEATURED -->
+
+<section class="section">
+
+  <div class="featured">
+
+    <div class="featured-content">
+
+      <h2>
+        ⭐ Featured Collection
+      </h2>
+
+      <p>
+        Explore selected videos from E.website.
+        Choose a video below to start watching.
+      </p>
+
     </div>
 
-    <div class="info">
-      <div class="name">Big Buck Bunny</div>
-      <div class="meta">Animation</div>
-    </div>
   </div>
 
+</section>
 
-  <!-- VIDEO 3 -->
-  <div
-    class="movie"
-    data-name="Demo Video"
-    data-category="demo"
-    onclick="playVideo('Demo Video','ScMzIvxBSi4')"
-  >
-    <div class="poster">
-      <img
-        src="https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg"
-        alt="Demo Video"
-      >
-    </div>
 
-    <div class="info">
-      <div class="name">Demo Video</div>
-      <div class="meta">Demo</div>
-    </div>
+<!-- PLAYER -->
+
+<section class="player-box" id="playerSection">
+
+  <div class="player">
+
+    <iframe
+      id="youtubePlayer"
+      src="https://www.youtube.com/embed/ACDKvjQKbW4"
+      title="E.website video player"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+
   </div>
 
+  <div class="now-playing" id="nowPlaying">
 
-  <!-- VIDEO 4 -->
-  <div
-    class="movie"
-    data-name="Featured Collection"
-    data-category="featured"
-    onclick="playVideo('Featured Collection','ACDKvjQKbW4')"
-  >
-    <div class="poster">
-      <img
-        src="https://img.youtube.com/vi/ACDKvjQKbW4/maxresdefault.jpg"
-        alt="Featured Collection"
-      >
-    </div>
+    Featured Video
 
-    <div class="info">
-      <div class="name">Featured Collection</div>
-      <div class="meta">Featured</div>
-    </div>
+    <span>
+      • Now Playing
+    </span>
+
   </div>
+
+</section>
+
+
+<!-- DETAILS -->
+
+<div class="details" id="details">
+
+  <button class="close" onclick="closeDetails()">
+    ×
+  </button>
+
+  <h2 id="detailsTitle">
+    Featured Video
+  </h2>
+
+  <p id="detailsText">
+    Watch this video directly inside E.website.
+  </p>
 
 </div>
+
+
+<!-- VIDEOS -->
+
+<section class="section" id="videos">
+
+  <h2 class="title">
+    🎬 Videos
+  </h2>
+
+  <p class="subtitle">
+    Choose something to watch
+  </p>
+
+  <div class="movie-row" id="movieRow">
+
+
+    <!-- VIDEO 1 -->
+
+    <div
+      class="movie"
+      data-name="Featured Video"
+      data-category="featured"
+      onclick="playVideo(
+        'Featured Video',
+        'ACDKvjQKbW4',
+        'Featured video from E.website.'
+      )"
+    >
+
+      <div class="poster">
+
+        <img
+          src="https://img.youtube.com/vi/ACDKvjQKbW4/maxresdefault.jpg"
+          alt="Featured Video"
+        >
+
+        <div class="play">
+          ▶
+        </div>
+
+        <div class="duration">
+          VIDEO
+        </div>
+
+      </div>
+
+      <div class="info">
+
+        <div class="name">
+          Featured Video
+        </div>
+
+        <div class="meta">
+          YouTube • Featured
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIDEO 2 -->
+
+    <div
+      class="movie"
+      data-name="Big Buck Bunny"
+      data-category="animation"
+      onclick="playVideo(
+        'Big Buck Bunny',
+        'aqz-KE-bpKQ',
+        'Animation video.'
+      )"
+    >
+
+      <div class="poster">
+
+        <img
+          src="https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
+          alt="Big Buck Bunny"
+        >
+
+        <div class="play">
+          ▶
+        </div>
+
+        <div class="duration">
+          VIDEO
+        </div>
+
+      </div>
+
+      <div class="info">
+
+        <div class="name">
+          Big Buck Bunny
+        </div>
+
+        <div class="meta">
+          Animation
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIDEO 3 -->
+
+    <div
+      class="movie"
+      data-name="Demo Video"
+      data-category="demo"
+      onclick="playVideo(
+        'Demo Video',
+        'ScMzIvxBSi4',
+        'Demo video.'
+      )"
+    >
+
+      <div class="poster">
+
+        <img
+          src="https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg"
+          alt="Demo Video"
+        >
+
+        <div class="play">
+          ▶
+        </div>
+
+        <div class="duration">
+          VIDEO
+        </div>
+
+      </div>
+
+      <div class="info">
+
+        <div class="name">
+          Demo Video
+        </div>
+
+        <div class="meta">
+          Demo
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- VIDEO 4 -->
+
+    <div
+      class="movie"
+      data-name="Featured Collection"
+      data-category="featured"
+      onclick="playVideo(
+        'Featured Collection',
+        'ACDKvjQKbW4',
+        'Featured collection.'
+      )"
+    >
+
+      <div class="poster">
+
+        <img
+          src="https://img.youtube.com/vi/ACDKvjQKbW4/maxresdefault.jpg"
+          alt="Featured Collection"
+        >
+
+        <div class="play">
+          ▶
+        </div>
+
+        <div class="duration">
+          VIDEO
+        </div>
+
+      </div>
+
+      <div class="info">
+
+        <div class="name">
+          Featured Collection
+        </div>
+
+        <div class="meta">
+          Featured
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="empty" id="empty">
+    No videos found.
+  </div>
+
+</section>
+
 
 <footer>
-  © 2026 E.website
+
+  © 2026 E.website • Built with HTML, CSS & JavaScript
+
 </footer>
 
 
 <script>
 
-function playVideo(title, id) {
+/* PLAY VIDEO */
 
-  const player = document.getElementById("youtubePlayer");
+function playVideo(title, id, description){
+
+  const player =
+    document.getElementById("youtubePlayer");
 
   player.src =
     "https://www.youtube.com/embed/" +
     id +
     "?autoplay=1";
 
-  document.getElementById("nowPlaying").textContent = title;
+  document.getElementById("nowPlaying").innerHTML =
+    title + ' <span>• Now Playing</span>';
+
+  document.getElementById("detailsTitle").textContent =
+    title;
+
+  document.getElementById("detailsText").textContent =
+    description;
+
+  document.getElementById("details").classList.add("show");
 
   goPlayer();
-}
-
-
-function goPlayer() {
-
-  document.getElementById("player").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
 
 }
 
 
-function searchVideos() {
+/* SCROLL TO PLAYER */
+
+function goPlayer(){
+
+  document
+    .getElementById("playerSection")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+}
+
+
+/* SEARCH */
+
+function searchVideos(){
 
   const search =
-    document.getElementById("search").value.toLowerCase();
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
 
   const videos =
     document.querySelectorAll(".movie");
+
+  let found = 0;
 
   videos.forEach(video => {
 
     const name =
       video.dataset.name.toLowerCase();
 
-    video.style.display =
-      name.includes(search) ? "" : "none";
-
-  });
-
-}
-
-
-function filterVideos(category) {
-
-  const videos =
-    document.querySelectorAll(".movie");
-
-  videos.forEach(video => {
-
-    if (
-      category === "all" ||
-      video.dataset.category === category
-    ) {
+    if(name.includes(search)){
 
       video.style.display = "";
 
-    } else {
+      found++;
+
+    }else{
 
       video.style.display = "none";
 
@@ -745,10 +918,67 @@ function filterVideos(category) {
 
   });
 
+  document.getElementById("empty").style.display =
+    found === 0 ? "block" : "none";
+
+}
+
+
+/* CATEGORY FILTER */
+
+function filterVideos(category, button){
+
+  const videos =
+    document.querySelectorAll(".movie");
+
+  let found = 0;
+
+  document
+    .querySelectorAll(".categories button")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  document
+    .getElementById("search")
+    .value = "";
+
+  videos.forEach(video => {
+
+    if(
+      category === "all" ||
+      video.dataset.category === category
+    ){
+
+      video.style.display = "";
+
+      found++;
+
+    }else{
+
+      video.style.display = "none";
+
+    }
+
+  });
+
+  document.getElementById("empty").style.display =
+    found === 0 ? "block" : "none";
+
+}
+
+
+/* CLOSE DETAILS */
+
+function closeDetails(){
+
+  document
+    .getElementById("details")
+    .classList.remove("show");
+
 }
 
 </script>
 
 </body>
 </html>
-
